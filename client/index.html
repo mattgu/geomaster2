@@ -1,0 +1,62 @@
+<head>
+	<title>GEOmaster</title>
+	<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+</head>
+<body>
+	<div align="center">
+		<h1>Willkommen zu Geomaster</h1>
+		<h2>Wähle eine der folgenden Spielarten:</h2>
+
+		<input type="button" value="Singleplayer" />
+		<input type="button" value="Lernmodus" />
+		{{> singleplayer}}
+	</div>
+</body>
+
+<template name="singleplayer">
+	<h1>GEO Master</h1>
+	{{loginButtons}}
+	<br />
+	<p>
+		Klicke auf Spiel starten um das Spiel zu beginngen, danach werden dir die Fragen und die Karte angezeigt
+		<br />
+		Damit dein Highscore gespeichert werden kann, muss du dich einlogen bzw registrieren
+	</p>
+	{{> startButton}}
+	<div id="gameContainer" hidden="true">
+		<h2>Welches Land geh&ouml;rt zu dieser Hauptstadt: {{> questions}}
+		<br />
+		Punkte: <span id="divpunkte"></span></h2>
+		<div style="width: 700px; height: 500px" id="map_canvas" class="map" data-projection="mill" data-name="au_mill_en"></div>
+	</div>
+	<div id="gameOver" hidden=true>
+		Zeit abgelaufen! Spiel vorbei!
+		<br />
+		Erreichte Punkte: <span id="finalPoints"></span>
+	</div>
+	<div id="highScore">
+		<h2 align="center"> Highscore <h2> {{> leaderboard}}
+	</div>
+</template>
+<template name="leaderboard">
+	<div class="leaderboard" align="center">
+		{{#each players}}
+		{{> player}}
+		{{/each}}
+	</div>
+</template>
+<template name="player">
+	<div class="player {{selected}}">
+		<span class="name">{{name}}</span>
+		<span class="score">{{score}}</span>
+	</div>
+</template>
+<template name="questions">
+	<div class="questions">
+		{{stadt}}
+	</div>
+</template>
+<template name="startButton">
+	<input type="button" value="Spiel Starten" />
+</template>
